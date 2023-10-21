@@ -1,0 +1,16 @@
+next.js
+1-Tema aktarım - kurulum, Anasayfa genel yapısı 9 saat
+2-react alt yapısı - dil alt yapsı kurulum 3 saat
+3-hakkımızda-iletişim-çalışmalarımız-duyurular - sayfaları 9 saat
+4- chat sistemi  9 saat
+5-kullanıcı kayıt sistemi 3saat (ön yüze bakan)
+6-çoklu dil sayfaların eklenmesi sırasında eklenmeli  tahmini 5 saat
+
+ADMİN
+1-anasayfa içerikleri,duyurular,haberler,çalışmalarımız 12saat
+2-tema kurulum 3 saat,
+3-anlık mesajın admine bakan kısmı ?
+4-kullanıcı kaydı yönetimi 4 saat
+5-Mail doğrulama 2saat
+6-Şifremi unuttum 1saat
+87- Beni hatırla -Yetkilendirme 3 saat
