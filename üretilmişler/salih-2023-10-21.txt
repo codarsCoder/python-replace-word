@@ -1,0 +1,4 @@
+ad:salih
+hikayeler:1,2,3
+cinsiyet:erkek
+tip:karma

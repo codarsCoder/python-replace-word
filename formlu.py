@@ -53,7 +53,7 @@ def generate_docs():
                     for run in paragraph.runs:
                         run.text = run.text.replace(search_word, replace_word)
 
-        doc.save(os.path.join("üretim", hikaye_adi + "_" + ad + ".docx"))
+        doc.save(os.path.join("üretim", ad + "_" + hikaye_adi + ".docx"))
         result_label.config(text="Belgeler başarıyla üretildi!")
 
     # Sipariş dosyasını taşı ve adını değiştir
