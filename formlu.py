@@ -22,14 +22,14 @@ def load_data_from_txt():
     entry_cinsiyet.insert(0, veriler.get("cinsiyet", ""))
     entry_tip.delete(0, tk.END)
     entry_tip.insert(0, veriler.get("tip", ""))
-
+   
 # Bu işlev, verileri form alanlarından alır ve belgeyi üretir
 def generate_docs():
     ad = entry_ad.get()
     hikayeler = entry_hikayeler.get()
     cinsiyet = entry_cinsiyet.get()
     tip = entry_tip.get()
-
+    tarih = date.today().strftime("%Y-%m-%d")
     hikaye_numaralari = hikayeler.split(',')
     hikaye_isimleri = ["hikaye-" + num for num in hikaye_numaralari]
 
@@ -57,7 +57,7 @@ def generate_docs():
         result_label.config(text="Belgeler başarıyla üretildi!")
 
     # Sipariş dosyasını taşı ve adını değiştir
-    tarih = date.today().strftime("%Y-%m-%d")
+
     yeni_ad = ad+"-" + tarih + ".txt"
     shutil.move("siparis.txt", os.path.join("üretilmişler", yeni_ad))
 
