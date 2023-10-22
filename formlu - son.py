@@ -11,7 +11,7 @@ def ihalii(kelime):
     son_harf = kelime[-1]
     son_iki_harf = kelime[-2] if len(kelime) >= 2 else ""
 
-    print(kelime)
+    
 
     if son_harf in ["a", "ı", "e", "i", "o", "u", "ö", "ü"]:
         harfler = "s"
@@ -168,7 +168,7 @@ def ninhalii(kelime):
     son_harf = kelime[-1]
     son_iki_harf = kelime[-2] if len(kelime) >= 2 else ""
 
-    print(f"{kelime}\n")
+   
 
     if son_harf in ["a", "ı", "e", "i", "o", "u", "ö", "ü"]:
         harfler = "s"
@@ -309,11 +309,12 @@ def generate_docs():
 
         doc.save(os.path.join("üretim", ad + "_" + hikaye_adi +"_"+tarih+ ".docx"))
         result_label.config(text="Belgeler başarıyla üretildi!")
-
-    # Sipariş dosyasını taşı ve adını değiştir
-
-    yeni_ad = ad+"-" + tarih + ".txt"
-    shutil.move("siparis.txt", os.path.join("üretilmişler", yeni_ad))
+        # Orijinal dosyanın kopyasını sil
+        os.remove(os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx"))
+        # Sipariş dosyasını taşı ve adını değiştir
+    #txt dosyasını taşı
+    # yeni_ad = ad+"-" + tarih + ".txt"
+    # shutil.move("siparis.txt", os.path.join("üretilmişler", yeni_ad))
 
 # Tkinter penceresini oluştur
 window = tk.Tk()
