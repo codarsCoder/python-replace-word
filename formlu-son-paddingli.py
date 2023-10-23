@@ -322,7 +322,7 @@ def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, ihali_en
             'xxdenxx': denhali,
             'xxi xx': ihali,
             'xxexx': ehali,
-            'yavuzdan': dehali,
+            'xxdexx': dehali,
             'yavuzdeb': debhali,
             'yavuzun': ninhali,
             'xxadxx': ad 
