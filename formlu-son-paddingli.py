@@ -4,7 +4,7 @@ import os
 import shutil
 from datetime import date
 
-def buyukharh(cumle):
+def buyukharf(cumle):
     kelimeler = cumle.split()
     duzeltilmis_kelimeler = [kelime.capitalize() for kelime in kelimeler]
     duzeltilmis_cumle = " ".join(duzeltilmis_kelimeler)
@@ -272,12 +272,12 @@ def load_data_from_txt(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, iha
     tip_entry.delete(0, tk.END)
     tip_entry.insert(0, veriler.get("tip", ""))
     ad = veriler.get("ad", "")
-    ihali = buyukharh(ihalii(ad))
-    ehali = buyukharh(ehalii(ad))
-    dehali = buyukharh(dehalii(ad))
-    denhali = buyukharh(denhalii(ad))
-    debhali = buyukharh(debhalii(ad))
-    ninhali = buyukharh(ninhalii(ad))
+    ihali = ihalii(buyukharf(ad))
+    ehali = ehalii(buyukharf(ad))
+    dehali = dehalii(buyukharf(ad))
+    denhali = denhalii(buyukharf(ad))
+    debhali = debhalii(buyukharf(ad))
+    ninhali = ninhalii(buyukharf(ad))
     ihali_entry.delete(0, tk.END)
     ihali_entry.insert(0, ihali)
     ehali_entry.delete(0, tk.END)
@@ -312,12 +312,12 @@ def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, ihali_en
         copy_path = os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx")
         shutil.copyfile(original_path, copy_path)
 
-        ihali = buyukharh(ihalii(ad))
-        ehali = buyukharh(ehalii(ad))
-        dehali = buyukharh(dehalii(ad))
-        denhali = buyukharh(denhalii(ad))
-        debhali = buyukharh(debhalii(ad))
-        ninhali = buyukharh(ninhalii(ad))
+        ihali = ihalii(buyukharf(ad))
+        ehali = ehalii(buyukharf(ad))
+        dehali = dehalii(buyukharf(ad))
+        denhali = denhalii(buyukharf(ad))
+        debhali = debhalii(buyukharf(ad))
+        ninhali = ninhalii(buyukharf(ad))
         word_replacements = {
             'xxdenxx': denhali,
             'xxi xx': ihali,
@@ -357,7 +357,7 @@ window = tk.Tk()
 window.title("Belge Üretici")
 
 # Form için bir Frame oluşturun
-form_frame = tk.Frame(window)
+form_frame = tk.Frame(window,padx=100,pady=100)
 form_frame.pack()
 
 # Verileri Yükle butonunu oluştur
@@ -384,7 +384,7 @@ labels_entries = [
 # Etiketler ve girdi alanları için döngü oluşturarak düzenleme
 row_counter = 1
 for label, entry in labels_entries:
-    tk.Label(form_frame, text=label).grid(row=row_counter, column=0)
+    tk.Label(form_frame, text=label,pady=5).grid(row=row_counter, column=0)
     entry.grid(row=row_counter, column=1)
     row_counter += 1
 
