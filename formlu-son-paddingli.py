@@ -300,7 +300,7 @@ def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, ihali_en
     tarih1 = now.strftime("%Y-%m-%d_%H:%M:%S")
     tarih = tarih1.replace(':', '')
     hikaye_numaralari = hikayeler.split(',')
-    hikaye_isimleri = ["hikaye-" + num for num in hikaye_numaralari]
+    hikaye_isimleri = [num for num in hikaye_numaralari]
 
     hikayalar_dizini = os.path.join("hikayeler", cinsiyet, tip)
 

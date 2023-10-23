@@ -1,4 +1,4 @@
 ad:Muhammed Enes Taha
-hikayeler:1,2,3
+hikayeler:hikaye-1,hikaye-2,hikaye-3
 cinsiyet:erkek
 tip:karma
