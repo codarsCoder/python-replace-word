@@ -299,7 +299,7 @@ def load_data_from_txt(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, yas
 
    
 # Bu işlev, verileri form alanlarından alır ve belgeyi üretir
-def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, ihali_entry, ehali_entry, dehali_entry, denhali_entry, debhali_entry, ninhali_entry):
+def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, yas_entry, sinif_entry, sehir_entry, dogum_entry, ihali_entry, ehali_entry, dehali_entry, denhali_entry, debhali_entry, ninhali_entry):
     ad = ad_entry.get()
     hikayeler = hikayeler_entry.get()
     cinsiyet = cinsiyet_entry.get()
@@ -403,7 +403,7 @@ for label, entry in labels_entries:
 generate_button = tk.Button(form_frame, text="Üret", command=lambda: generate_docs(
     labels_entries[0][1], labels_entries[1][1], labels_entries[2][1], labels_entries[3][1],
     labels_entries[4][1], labels_entries[5][1], labels_entries[6][1], labels_entries[7][1],
-    labels_entries[8][1], labels_entries[9][1]))
+    labels_entries[8][1], labels_entries[9][1], labels_entries[10][1], labels_entries[11][1], labels_entries[12][1], labels_entries[13][1]))
 generate_button.grid(row=row_counter, column=0, columnspan=2)
 
 # Sonuç etiketi
