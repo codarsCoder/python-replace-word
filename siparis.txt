@@ -1,4 +1,4 @@
-ad:salih
+ad:muhammed enes taha
 hikayeler:1,2,3
 cinsiyet:erkek
 tip:karma

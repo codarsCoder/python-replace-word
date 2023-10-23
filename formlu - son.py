@@ -4,6 +4,12 @@ import os
 import shutil
 from datetime import date
 
+def buyukharh(cumle):
+    kelimeler = cumle.split()
+    duzeltilmis_kelimeler = [kelime.capitalize() for kelime in kelimeler]
+    duzeltilmis_cumle = " ".join(duzeltilmis_kelimeler)
+    return duzeltilmis_cumle
+
 def ihalii(kelime):
     kelime = kelime.lower()
     harfler = ""
@@ -265,6 +271,27 @@ def load_data_from_txt():
     entry_cinsiyet.insert(0, veriler.get("cinsiyet", ""))
     entry_tip.delete(0, tk.END)
     entry_tip.insert(0, veriler.get("tip", ""))
+    ad=veriler.get("ad", "")
+    ihali = buyukharh(ihalii(ad))
+    ehali = buyukharh(ehalii(ad))
+    dehali = buyukharh(dehalii(ad))
+    denhali = buyukharh(denhalii(ad))
+    debhali = buyukharh(debhalii(ad))
+    ninhali = buyukharh(ninhalii(ad))
+    entry_ihali.delete(0, tk.END)
+    entry_ihali.insert(0, ihali)
+    entry_ehali.delete(0, tk.END)
+    entry_ehali.insert(0, ehali)
+    entry_dehali.delete(0, tk.END)
+    entry_dehali.insert(0, dehali)
+    entry_denhali.delete(0, tk.END)
+    entry_denhali.insert(0, denhali)
+    entry_debhali.delete(0, tk.END)
+    entry_debhali.insert(0, debhali)
+    entry_ninhali.delete(0, tk.END)
+    entry_ninhali.insert(0, ninhali)
+
+
    
 # Bu işlev, verileri form alanlarından alır ve belgeyi üretir
 def generate_docs():
@@ -278,39 +305,48 @@ def generate_docs():
 
     hikayalar_dizini = os.path.join("hikayeler", cinsiyet, tip)
 
+   # ... (previous code) ...
+
     for hikaye_adi in hikaye_isimleri:
         original_path = os.path.join(hikayalar_dizini, hikaye_adi + ".docx")
         copy_path = os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx")
         shutil.copyfile(original_path, copy_path)
 
-        ihali = ihalii(ad)
-        ehali = ehalii(ad)
-        dehali = dehalii(ad)
-        denhali = denhalii(ad)
-        debhali = debhalii(ad)
-        ninhali = ninhalii(ad)
-        word_replacements = [
-            ("Yavuz'u", ihali),
-            ("Yavuz'a", ehali),
-            ("Yavuz'da", dehali),
-            ("Yavuz'dan", denhali),
-            ("Yavuz da", debhali),
-            ("Yavuz'un", ninhali),
-            ("Yavuz", ad),
-        ]
+        ihali = buyukharh(ihalii(ad))
+        ehali = buyukharh(ehalii(ad))
+        dehali = buyukharh(dehalii(ad))
+        denhali = buyukharh(denhalii(ad))
+        debhali = buyukharh(debhalii(ad))
+        ninhali = buyukharh(ninhalii(ad))
+        word_replacements = {
+            'xxdenxx': denhali,
+            'xxi xx': ihali,
+            'xxexx': ehali,
+            'yavuzdan': dehali,
+            'yavuzdeb': debhali,
+            'yavuzun': ninhali,
+            'xxadxx': ad 
+        }
 
         doc = Document(os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx"))
+        new_doc = Document()
 
         for paragraph in doc.paragraphs:
-            for search_word, replace_word in word_replacements:
-                if search_word in paragraph.text:
-                    for run in paragraph.runs:
-                        run.text = run.text.replace(search_word, replace_word)
+            new_paragraph = new_doc.add_paragraph()
+            for run in paragraph.runs:
+                text = run.text
+                for search_word, replace_word in word_replacements.items():
+                    text = text.replace(search_word, replace_word)
+                new_run = new_paragraph.add_run(text)
+                new_run.bold = run.bold
+                new_run.italic = run.italic
+                new_run.underline = run.underline
 
-        doc.save(os.path.join("üretim", ad + "_" + hikaye_adi +"_"+tarih+ ".docx"))
+        new_doc.save(os.path.join("üretim", ad + "_" + hikaye_adi + "_" + tarih + ".docx"))
         result_label.config(text="Belgeler başarıyla üretildi!")
         # Orijinal dosyanın kopyasını sil
         os.remove(os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx"))
+
         # Sipariş dosyasını taşı ve adını değiştir
     #txt dosyasını taşı
     # yeni_ad = ad+"-" + tarih + ".txt"
@@ -332,6 +368,20 @@ label_cinsiyet = tk.Label(window, text="Cinsiyet:")
 entry_cinsiyet = tk.Entry(window)
 label_tip = tk.Label(window, text="Tip:")
 entry_tip = tk.Entry(window)
+# Etiketler ve girdi alanları için ihali, ehali, dehali, denhali, debhali ve ninhali ekleyin
+label_ihali = tk.Label(window, text="İhali:")
+entry_ihali = tk.Entry(window)
+label_ehali = tk.Label(window, text="Ehali:")
+entry_ehali = tk.Entry(window)
+label_dehali = tk.Label(window, text="Dehali:")
+entry_dehali = tk.Entry(window)
+label_denhali = tk.Label(window, text="Denhali:")
+entry_denhali = tk.Entry(window)
+label_debhali = tk.Label(window, text="Debhali:")
+entry_debhali = tk.Entry(window)
+label_ninhali = tk.Label(window, text="Ninhali:")
+entry_ninhali = tk.Entry(window)
+
 
 # Üret butonunu oluştur
 generate_button = tk.Button(window, text="Üret", command=generate_docs)
@@ -351,5 +401,18 @@ label_tip.grid(row=4, column=0)
 entry_tip.grid(row=4, column=1)
 generate_button.grid(row=5, column=0, columnspan=2)
 result_label.grid(row=6, column=0, columnspan=2)
+# İhali, Ehali, Dehali, Denhali, Debhali ve Ninhali etiketleri ve girdi alanlarını düzenle
+label_ihali.grid(row=7, column=0)
+entry_ihali.grid(row=7, column=1)
+label_ehali.grid(row=8, column=0)
+entry_ehali.grid(row=8, column=1)
+label_dehali.grid(row=9, column=0)
+entry_dehali.grid(row=9, column=1)
+label_denhali.grid(row=10, column=0)
+entry_denhali.grid(row=10, column=1)
+label_debhali.grid(row=11, column=0)
+entry_debhali.grid(row=11, column=1)
+label_ninhali.grid(row=12, column=0)
+entry_ninhali.grid(row=12, column=1)
 
 window.mainloop()
