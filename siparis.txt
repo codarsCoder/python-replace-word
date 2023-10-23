@@ -1,4 +1,4 @@
-ad:muhammed enes taha
+ad:Muhammed Enes Taha
 hikayeler:1,2,3
 cinsiyet:erkek
 tip:karma

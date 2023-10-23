@@ -56,7 +56,7 @@ def ihalii(kelime):
         elif son_harf in ["ö", "ü"]:
             ek = 'yü'
 
-    return f"{kelime}'{ek}"
+    return f"{buyukharf(kelime)}'{ek}"
 
 def ehalii(kelime):
     kelime = kelime.lower()
@@ -92,7 +92,7 @@ def ehalii(kelime):
         elif son_harf in ["e", "i", "ö", "ü"]:
             ek = 'ye'
 
-    return f"{kelime}'{ek}"
+    return f"{buyukharf(kelime)}'{ek}"
 
 
 def dehalii(kelime):
@@ -129,7 +129,7 @@ def dehalii(kelime):
         elif son_harf in ["e", "i", "ö", "ü"]:
             ek = 'de'
 
-    return f"{kelime}'{ek}"
+    return f"{buyukharf(kelime)}'{ek}"
 
 def denhalii(kelime):
     kelime = kelime.lower()
@@ -165,7 +165,7 @@ def denhalii(kelime):
         elif son_harf in ["e", "i", "ö", "ü"]:
             ek = 'den'
 
-    return f"{kelime}'{ek}"
+    return f"{buyukharf(kelime)}'{ek}"
 
 def ninhalii(kelime):
     kelime = kelime.lower()
@@ -213,7 +213,7 @@ def ninhalii(kelime):
         elif son_harf in ["ö", "ü"]:
             ek = 'nün'
 
-    return f"{kelime}'{ek}"
+    return f"{buyukharf(kelime)}'{ek}"
 
 def debhalii(kelime): #de-da bağlacı
     kelime = kelime.lower()
@@ -249,7 +249,7 @@ def debhalii(kelime): #de-da bağlacı
         elif son_harf in ["e", "i", "ö", "ü"]:
             ek = 'de'
 
-    return f"{kelime} {ek}"
+    return f"{buyukharf(kelime)} {ek}"
 
 
 
@@ -272,12 +272,12 @@ def load_data_from_txt(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, iha
     tip_entry.delete(0, tk.END)
     tip_entry.insert(0, veriler.get("tip", ""))
     ad = veriler.get("ad", "")
-    ihali = ihalii(buyukharf(ad))
-    ehali = ehalii(buyukharf(ad))
-    dehali = dehalii(buyukharf(ad))
-    denhali = denhalii(buyukharf(ad))
-    debhali = debhalii(buyukharf(ad))
-    ninhali = ninhalii(buyukharf(ad))
+    ihali = ihalii(ad)
+    ehali = ehalii(ad)
+    dehali = dehalii(ad)
+    denhali = denhalii(ad)
+    debhali = debhalii(ad)
+    ninhali = ninhalii(ad)
     ihali_entry.delete(0, tk.END)
     ihali_entry.insert(0, ihali)
     ehali_entry.delete(0, tk.END)
@@ -311,13 +311,13 @@ def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, ihali_en
         original_path = os.path.join(hikayalar_dizini, hikaye_adi + ".docx")
         copy_path = os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx")
         shutil.copyfile(original_path, copy_path)
-
-        ihali = ihalii(buyukharf(ad))
-        ehali = ehalii(buyukharf(ad))
-        dehali = dehalii(buyukharf(ad))
-        denhali = denhalii(buyukharf(ad))
-        debhali = debhalii(buyukharf(ad))
-        ninhali = ninhalii(buyukharf(ad))
+        
+        ihali = ihalii(ad)
+        ehali = ehalii(ad)
+        dehali = dehalii(ad)
+        denhali = denhalii(ad)
+        debhali = debhalii(ad)
+        ninhali = ninhalii(ad)
         word_replacements = {
             'xxdenxx': denhali,
             'xxi xx': ihali,
