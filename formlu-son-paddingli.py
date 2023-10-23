@@ -65,7 +65,6 @@ def ehalii(kelime):
     son_harf = kelime[-1]
     son_iki_harf = kelime[-2] if len(kelime) >= 2 else ""
 
-    print(f"{son_harf}\n")
 
     if son_harf in ["a", "ı", "e", "i", "o", "u", "ö", "ü"]:
         harfler = "s"
@@ -102,7 +101,7 @@ def dehalii(kelime):
     son_harf = kelime[-1]
     son_iki_harf = kelime[-2] if len(kelime) >= 2 else ""
 
-    print(f"{son_harf}\n")
+    
 
     if son_harf in ["a", "ı", "e", "i", "o", "u", "ö", "ü"]:
         harfler = "s"
@@ -138,7 +137,6 @@ def denhalii(kelime):
     son_harf = kelime[-1]
     son_iki_harf = kelime[-2] if len(kelime) >= 2 else ""
 
-    print(f"{son_harf}\n")
 
     if son_harf in ["a", "ı", "e", "i", "o", "u", "ö", "ü"]:
         harfler = "s"
@@ -222,7 +220,6 @@ def debhalii(kelime): #de-da bağlacı
     son_harf = kelime[-1]
     son_iki_harf = kelime[-2] if len(kelime) >= 2 else ""
 
-    print(f"{son_harf}\n")
 
     if son_harf in ["a", "ı", "e", "i", "o", "u", "ö", "ü"]:
         harfler = "s"
