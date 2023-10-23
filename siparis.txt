@@ -6,4 +6,3 @@ sinif:4
 sehir:Aydın
 dogum:01-12
 tip:KARMA
-
