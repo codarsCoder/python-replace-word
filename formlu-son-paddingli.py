@@ -3,7 +3,7 @@ from docx import Document
 import os
 import shutil
 from datetime import date
-
+from datetime import datetime  # datetime modülünü içe aktar
 def buyukharf(cumle):
     kelimeler = cumle.split()
     duzeltilmis_kelimeler = [kelime.capitalize() for kelime in kelimeler]
@@ -296,7 +296,9 @@ def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, ihali_en
     hikayeler = hikayeler_entry.get()
     cinsiyet = cinsiyet_entry.get()
     tip = tip_entry.get()
-    tarih = date.today().strftime("%Y-%m-%d")
+    now = datetime.now()
+    tarih1 = now.strftime("%Y-%m-%d_%H:%M:%S")
+    tarih = tarih1.replace(':', '')
     hikaye_numaralari = hikayeler.split(',')
     hikaye_isimleri = ["hikaye-" + num for num in hikaye_numaralari]
 
@@ -317,9 +319,9 @@ def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, ihali_en
         ninhali = ninhalii(ad)
         word_replacements = {
             'xxdenxx': denhali,
-            'xxi xx': ihali,
+            'yavuzu': ihali,
             'xxexx': ehali,
-            'xxdexx': dehali,
+            'yavuzda': dehali,
             'yavuzdeb': debhali,
             'yavuzun': ninhali,
             'xxadxx': ad 
