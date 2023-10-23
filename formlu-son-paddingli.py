@@ -326,13 +326,13 @@ def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, yas_entr
         debhali = debhalii(ad)
         ninhali = ninhalii(ad)
         word_replacements = {
-            'xxdenxx': denhali,
+            'yavuzdan': denhali,
             'yavuzu': ihali,
-            'xxexx': ehali,
+            'yavuza': ehali,
             'yavuzda': dehali,
             'yavuzdeb': debhali,
             'yavuzun': ninhali,
-            'xxadxx': ad 
+            'yavuz': ad 
         }
 
         doc = Document(os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx"))
