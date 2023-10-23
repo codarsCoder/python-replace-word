@@ -249,11 +249,10 @@ def debhalii(kelime): #de-da bağlacı
     return f"{buyukharf(kelime)} {ek}"
 
 
-
 # Bu işlev, verileri txt dosyasından alır ve form alanlarına yansıtır
-def load_data_from_txt(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, ihali_entry, ehali_entry, dehali_entry, denhali_entry, debhali_entry, ninhali_entry):
-    with open("siparis.txt", "r") as file:
-        lines = file.readlines()
+def load_data_from_txt(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, yas_entry, sinif_entry, sehir_entry, dogum_entry, ihali_entry, ehali_entry, dehali_entry, denhali_entry, debhali_entry, ninhali_entry):
+   with open("siparis.txt", "r", encoding="utf-8") as file:
+    lines = file.readlines()
 
     veriler = {}
     for line in lines:
@@ -268,6 +267,14 @@ def load_data_from_txt(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, iha
     cinsiyet_entry.insert(0, veriler.get("cinsiyet", ""))
     tip_entry.delete(0, tk.END)
     tip_entry.insert(0, veriler.get("tip", ""))
+    yas_entry.delete(0, tk.END)
+    yas_entry.insert(0, veriler.get("yas", ""))
+    sinif_entry.delete(0, tk.END)
+    sinif_entry.insert(0, veriler.get("sinif", ""))
+    sehir_entry.delete(0, tk.END)
+    sehir_entry.insert(0, veriler.get("sehir", ""))
+    dogum_entry.delete(0, tk.END)
+    dogum_entry.insert(0, veriler.get("dogum", ""))
     ad = veriler.get("ad", "")
     ihali = ihalii(ad)
     ehali = ehalii(ad)
@@ -287,6 +294,7 @@ def load_data_from_txt(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, iha
     debhali_entry.insert(0, debhali)
     ninhali_entry.delete(0, tk.END)
     ninhali_entry.insert(0, ninhali)
+
 
 
    
@@ -363,7 +371,7 @@ form_frame.pack()
 load_button = tk.Button(form_frame, text="Verileri Yükle", command=lambda: load_data_from_txt(
     labels_entries[0][1], labels_entries[1][1], labels_entries[2][1], labels_entries[3][1],
     labels_entries[4][1], labels_entries[5][1], labels_entries[6][1], labels_entries[7][1],
-    labels_entries[8][1], labels_entries[9][1]))
+    labels_entries[8][1], labels_entries[9][1], labels_entries[10][1], labels_entries[11][1], labels_entries[12][1], labels_entries[13][1]))
 load_button.grid(row=0, column=0, columnspan=2)
 
 # Etiketler ve girdi alanları oluştur
@@ -372,6 +380,10 @@ labels_entries = [
     ("Hikayeler (Virgülle Ayırılmış):", tk.Entry(form_frame, width=30)),
     ("Cinsiyet:", tk.Entry(form_frame, width=30)),
     ("Tip:", tk.Entry(form_frame, width=30)),
+    ("Yaş:", tk.Entry(form_frame, width=30)),
+    ("Sınıf:", tk.Entry(form_frame, width=30)),
+    ("Şehir:", tk.Entry(form_frame, width=30)),
+    ("Doğum T.:", tk.Entry(form_frame, width=30)),
     ("İhali:", tk.Entry(form_frame, width=30)),
     ("Ehali:", tk.Entry(form_frame, width=30)),
     ("Dehali:", tk.Entry(form_frame, width=30)),

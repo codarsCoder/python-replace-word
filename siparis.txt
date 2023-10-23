@@ -1,4 +1,8 @@
-ad:Muhammed Enes Taha
-hikayeler:hikaye-1,hikaye-2,hikaye-3
-cinsiyet:erkek
-tip:karma
+ad: Hasan
+hikayeler: HİKAYE 1, HİKAYE 2, Hikaye 3
+cinsiyet: erkek
+yas: 12
+sinif: 4
+sehir: Aydın
+dogum: 01-12
+tip: DIŞADÖNÜK
