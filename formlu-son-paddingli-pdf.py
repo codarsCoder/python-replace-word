@@ -2,8 +2,12 @@ import tkinter as tk
 from docx import Document
 import os
 import shutil
+import pdfplumber
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 from datetime import date
 from datetime import datetime  # datetime modülünü içe aktar
+
 def buyukharf(cumle):
     kelimeler = cumle.split()
     duzeltilmis_kelimeler = [kelime.capitalize() for kelime in kelimeler]
@@ -298,7 +302,8 @@ def load_data_from_txt(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, yas
 
 
    
-# Bu işlev, verileri form alanlarından alır ve belgeyi üretir
+
+
 def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, yas_entry, sinif_entry, sehir_entry, dogum_entry, ihali_entry, ehali_entry, dehali_entry, denhali_entry, debhali_entry, ninhali_entry):
     ad = ad_entry.get()
     hikayeler = hikayeler_entry.get()
@@ -312,20 +317,25 @@ def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, yas_entr
 
     hikayalar_dizini = os.path.join("hikayeler", cinsiyet, tip)
 
-   # ... (previous code) ...
+    # ... (previous code) ...
 
     for hikaye_adi in hikaye_isimleri:
-        original_path = os.path.join(hikayalar_dizini, hikaye_adi + ".docx")
-        copy_path = os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx")
-        shutil.copyfile(original_path, copy_path)
-        
+        original_pdf_path = os.path.join(hikayalar_dizini, hikaye_adi + ".pdf")
+        copy_pdf_path = os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".pdf")
+
+        # Dosyanın boş olup olmadığını kontrol et
+        if os.path.getsize(original_pdf_path) == 0:
+            continue  # Boş dosyayı atla
+
+        shutil.copyfile(original_pdf_path, copy_pdf_path)
+
         ihali = ihalii(ad)
         ehali = ehalii(ad)
         dehali = dehalii(ad)
         denhali = denhalii(ad)
         debhali = debhalii(ad)
         ninhali = ninhalii(ad)
-        word_replacements = {
+        pdf_replacements = {
             'yavuzdan': denhali,
             'yavuzu': ihali,
             'yavuza': ehali,
@@ -335,35 +345,29 @@ def generate_docs(ad_entry, hikayeler_entry, cinsiyet_entry, tip_entry, yas_entr
             'yavuz': ad 
         }
 
-        doc = Document(os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx"))
-        new_doc = Document()
+        with pdfplumber.open(copy_pdf_path) as pdf:
+            num_pages = len(pdf.pages)
+            pdf_writer = canvas.Canvas(copy_pdf_path, pagesize=letter)
 
-        def replace_words(text):
-            words = text.split()  # Metni kelimelere ayır
-            for i, word in enumerate(words):
-                # Tam kelime eşleşmesini kontrol et
-                if word in word_replacements and words[i:i+len(word.split())] == word.split():
-                    words[i] = word_replacements[word]
-            return ' '.join(words)  # Değiştirilmiş kelimeleri birleştir
+            for page_num in range(num_pages):
+                page = pdf.pages[page_num]
+                page_text = page.extract_text()
 
-        for paragraph in doc.paragraphs:
-            new_paragraph = new_doc.add_paragraph()
-            for run in paragraph.runs:
-                text = run.text
-                modified_text = replace_words(text)
-                new_run = new_paragraph.add_run(modified_text)
-                new_run.bold = run.bold
-                new_run.italic = run.italic
-                new_run.underline = run.underline
+                for search_word, replace_word in pdf_replacements.items():
+                    page_text = page_text.replace(search_word, replace_word)
 
-        new_doc.save(os.path.join("üretim", ad + "_" + hikaye_adi + "_" + tarih + ".docx"))
+                pdf_writer.drawString(100, 100, page_text)
+                pdf_writer.showPage()
+
+            pdf_writer.save()
+
         result_label.config(text="Belgeler başarıyla üretildi!")
         # Orijinal dosyanın kopyasını sil
-        os.remove(os.path.join(hikayalar_dizini, hikaye_adi + "_" + ad + ".docx"))
+        # os.remove(copy_pdf_path)
 
         # Sipariş dosyasını taşı ve adını değiştir
-    #txt dosyasını taşı
-    # yeni_ad = ad+"-" + tarih + ".txt"
+    # txt dosyasını taşı
+    # yeni_ad = ad + "-" + tarih + ".txt"
     # shutil.move("siparis.txt", os.path.join("üretilmişler", yeni_ad))
 
 # Tkinter penceresini oluştur
